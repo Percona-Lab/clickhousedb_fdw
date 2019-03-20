@@ -9,7 +9,7 @@
 #include "clickhouse-client.h"
 
 
-#define driver "/home/vagrant/percona/clickhousedb_fdw/lib/clickhouse-odbc/driver/libclickhouseodbc.so"
+#define driver "/home/vagrant/percona/clickhouse-odbc/driver/libclickhouseodbc.so"
 
 int select()
 {
@@ -27,10 +27,10 @@ int select()
 		return -1;
 	}
 
-	Conn *conn = odbc_connect((char*)driver,(char*) "127.0.0.1", 8123, (char*)"default", (char*)"", (char*)"", error);
+	Conn *conn = odbc_connect((char*)driver,(char*) "127.0.0.1", 8123, (char*)"default111", (char*)"", (char*)"", error);
 	if (conn == 0)
 	{
-		printf("\nERROR: failed to connect\n %s\n", conn->error);			
+		printf("\nERROR: failed to connect\n %s\n", error);			
 		return -1;
 	}
 	r = odbc_prepare(conn, (char*)"SELECT * FROM dept");
@@ -91,7 +91,7 @@ int insert()
 	Conn *conn = odbc_connect((char*)driver,(char*) "127.0.0.1", 8123, (char*)"default", (char*)"", (char*)"", error);
 	if (conn == 0)
 	{
-		printf("\nERROR: failed to connect\n %s\n", conn->error);			
+		printf("\nERROR: failed to connect\n %s\n", error);			
 		return -1;
 	}
 
@@ -133,6 +133,6 @@ int insert()
 
 int main()
 {
-	insert();	
+	//insert();	
 	select();
 }

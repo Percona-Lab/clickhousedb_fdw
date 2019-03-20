@@ -1,7 +1,7 @@
 CREATE EXTENSION clickhousedb_fdw;
 CREATE SERVER testserver1 FOREIGN DATA WRAPPER clickhousedb_fdw OPTIONS(dbname 'regression', driver '/usr/lib/libclickhouseodbc.so');
 CREATE SERVER loopback FOREIGN DATA WRAPPER clickhousedb_fdw OPTIONS(dbname 'regression', driver '/usr/lib/libclickhouseodbc.so');
-CREATE SERVER loopback2 FOREIGN DATA WRAPPER clickhousedb_fdw OPTIONS(dbname 'regression', driver '/usr/libclickhouseodbc.so');
+CREATE SERVER loopback2 FOREIGN DATA WRAPPER clickhousedb_fdw OPTIONS(dbname 'regression', driver '/usr/lib/libclickhouseodbc.so');
 CREATE USER MAPPING FOR public SERVER testserver1 OPTIONS (user 'value', password 'value');
 CREATE USER MAPPING FOR CURRENT_USER SERVER loopback;
 CREATE USER MAPPING FOR CURRENT_USER SERVER loopback2;
@@ -100,7 +100,7 @@ ALTER USER MAPPING FOR CURRENT_USER SERVER loopback OPTIONS (ADD user 'no such u
 
 SELECT c3, c4 FROM ft1 ORDER BY c3, c1 LIMIT 1;  -- should fail
 
-ALTER SERVER loopback OPTIONS (SET dbname 'default');
+ALTER SERVER loopback OPTIONS (SET dbname 'regression');
 ALTER USER MAPPING FOR CURRENT_USER SERVER loopback OPTIONS (DROP user);
 
 SELECT c3, c4 FROM ft1 ORDER BY c3, c1 LIMIT 1;  -- should work again
@@ -139,11 +139,11 @@ SET enable_nestloop TO false;
 
 EXPLAIN (VERBOSE, COSTS OFF) SELECT t1.c1, t2.c1 FROM ft2 t1 JOIN ft1 t2 ON (t1.c1 = t2.c1) OFFSET 100 LIMIT 10;
 
-SELECT t1.c1, t2.c1 FROM ft2 t1 JOIN ft1 t2 ON (t1.c1 = t2.c1) OFFSET 100 LIMIT 10;
+SELECT DISTINCT t1.c1, t2.c1 FROM ft2 t1 JOIN ft1 t2 ON (t1.c1 = t2.c1) order by t1.c1 LIMIT 10;
 
 EXPLAIN (VERBOSE, COSTS OFF) SELECT t1.c1, t2.c1 FROM ft2 t1 LEFT JOIN ft1 t2 ON (t1.c1 = t2.c1) OFFSET 100 LIMIT 10;
 
-SELECT t1.c1, t2.c1 FROM ft2 t1 LEFT JOIN ft1 t2 ON (t1.c1 = t2.c1) OFFSET 100 LIMIT 10;
+SELECT DISTINCT t1.c1, t2.c1 FROM ft2 t1 LEFT JOIN ft1 t2 ON (t1.c1 = t2.c1) order by t1.c1 LIMIT 10;
 
 EXPLAIN (VERBOSE, COSTS OFF) SELECT t1.c1 FROM ft1 t1 left join ft1 t2 join ft2 t3 on (t2.c1 = t3.c1) on (t3.c1 = t1.c1) OFFSET 100 LIMIT 10;
 

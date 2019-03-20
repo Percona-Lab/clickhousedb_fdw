@@ -70,8 +70,9 @@ odbc_connect(char *driver, char *host, int port, char *dbname,
 {
 		Conn *conn = new Conn();		
     SQLRETURN ret;
-		char url[512];
-    SQLCHAR retconstring[1024];
+		char url[512] = {0};
+    SQLCHAR retconstring[1024] = {0};
+    SQLSMALLINT retlen = 1024;
 		SQLRETURN rc;
 
 		error[0] = '\0';
@@ -92,14 +93,17 @@ odbc_connect(char *driver, char *host, int port, char *dbname,
 			delete conn;
 			return NULL;
 		}
-		sprintf(url, "DRIVER={%s};proto=http;host=%s;port=%d;database=%s;uid=%s;pwd=%s;",driver,host,port,dbname,user,pass);
+        SQLSetConnectAttr(conn->conn, SQL_LOGIN_TIMEOUT, (SQLPOINTER)5, 0);  
+  
+		sprintf(url, "Driver={%s};url=http://%s:%s@%s:%d/query?database=%s&max_result_bytes=14000000&buffer_size=3000000;",driver,user,pass,host,port,dbname);
+
     rc = SQLDriverConnect (conn->conn,
                 NULL,
                 (SQLCHAR*)url,
                 SQL_NTS,
                 retconstring,
-                1024,
-                NULL,
+                retlen,
+                &retlen,
                 SQL_DRIVER_NOPROMPT);
 		switch (rc)
 		{
@@ -107,6 +111,7 @@ odbc_connect(char *driver, char *host, int port, char *dbname,
             break;
         case SQL_INVALID_HANDLE:
         case SQL_ERROR:
+
 						odbc_error(SQL_HANDLE_DBC, conn->conn, error);
 						delete conn;
             return NULL;
