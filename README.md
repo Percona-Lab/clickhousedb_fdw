@@ -1,5 +1,5 @@
 # clickhousedb_fdw - ClickHouse Foreign Data Wrapper for PostgreSQL
-The clickhousedb_fdw is open-source (GPLv2 licensed). It is a Foreign Data Wrapper (FDW) for one of the fastest column store databases; "Clickhouse". This FDW allows you to SELECT from, and INSERT into, a ClickHouse database from within a PostgreSQL v11 server.
+The clickhousedb_fdw is open-source. It is a Foreign Data Wrapper (FDW) for one of the fastest column store databases; "Clickhouse". This FDW allows you to SELECT from, and INSERT into, a ClickHouse database from within a PostgreSQL v11 server.
 
 The FDW supports advanced features like aggregate pushdown and joins pushdown. These significantly improve performance by utilizing the remote server’s resources for these resource intensive operations.
 
