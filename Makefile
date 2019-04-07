@@ -4,8 +4,8 @@ MODULE_big = clickhousedb_fdw
 OBJS = clickhousedb_fdw.o clickhousedb_option.o clickhousedb_deparse.o clickhousedb_connection.o clickhousedb_shipable.o
 PGFILEDESC = "clickhousedb_fdw - foreign data wrapper for ClickHouse"
 
-PG_CPPFLAGS = -Wno-unused-function -Ilib 
-SHLIB_LINK_INTERNAL = -L. -lclickhouse-1.0 -lodbc
+PG_CPPFLAGS = -g3 -O0 -Wno-unused-function -Ilib 
+SHLIB_LINK_INTERNAL = -L. -lclickhouse-1.0 -lodbc -lodbcinst
 
 EXTENSION = clickhousedb_fdw
 DATA = clickhousedb_fdw--1.0.sql

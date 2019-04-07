@@ -5,7 +5,7 @@ CPPFLAGS:= -O0 -g3 -Wno-unused-variable -fPIC -Wall -I. -Ilib
 LDFLAGS:= $(LDFLAGS) -fPIC -shared -ldl -lstdc++ -L -lodbc 
 
 TEST_CPPFLAGS:= -O0 -g3 -Wno-unused-variable -Iinclude 
-TEST_LDFLAGS:= -ldl -L. -lclickhouse-1.0 -lodbc 
+TEST_LDFLAGS:= -ldl -L. -lclickhouse-1.0 -lodbc -lodbcinst 
 PG_CONFIG=pg_config
 INSTALL_DIR=$(shell $(PG_CONFIG) --libdir)
 
