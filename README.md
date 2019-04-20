@@ -21,7 +21,7 @@ The latest release of clickhousedb_fdw can be downloaded from this GitHub page:
 
 or it can be downloaded using the git: 
 
-     git clone https://github.com/Percona/clickhousedb_fdw.git
+     git clone git://github.com/Percona-Lab/clickhousedb_fdw.git
      
 After downloading the code, set the path for the PostgreSQL binary: 
 
