@@ -212,6 +212,7 @@ typedef struct
  * SQL functions
  */
 PG_FUNCTION_INFO_V1(clickhousedb_fdw_handler);
+extern PGDLLEXPORT void _PG_init(void);
 
 /*
  * FDW callback routines
@@ -344,6 +345,22 @@ static void apply_table_options(CHFdwRelationInfo *fpinfo);
 static void merge_fdw_options(CHFdwRelationInfo *fpinfo,
                               const CHFdwRelationInfo *fpinfo_o,
                               const CHFdwRelationInfo *fpinfo_i);
+
+static bool is_join_pushdown_safe = true;
+void
+_PG_init(void)
+{
+	DefineCustomBoolVariable("clickhousedb_fdw.join_pushdown_safe",
+							"Server-side join_pushdown_safe",
+							NULL,
+							&is_join_pushdown_safe,
+							false,
+							PGC_USERSET,
+							0,
+							NULL,
+							NULL,
+							NULL);
+}
 
 /*
  * Foreign-data wrapper handler function: return a struct with pointers
@@ -1560,9 +1577,17 @@ estimate_path_cost_size(PlannerInfo *root,
 
         *p_rows = 1000;
         *p_width = 50;
-        *p_startup_cost = 1.0;
-        *p_total_cost = -1.0;
 
+        if (is_join_pushdown_safe)
+        {
+            *p_startup_cost = 1.0;
+            *p_total_cost = -1.0;
+        }
+        else
+        {
+            *p_startup_cost = 1000.0;
+            *p_total_cost = 100.0;
+        }
         elog(DEBUG2, "< %s:%d", __FUNCTION__, __LINE__);
 }
 
