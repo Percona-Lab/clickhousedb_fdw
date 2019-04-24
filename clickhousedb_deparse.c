@@ -571,40 +571,8 @@ foreign_expr_walker(Node *node,
                 break;
                 case T_ScalarArrayOpExpr:
                 {
-                        ScalarArrayOpExpr *oe = (ScalarArrayOpExpr *) node;
-
-                        /*
-                         * Again, only shippable operators can be sent to remote.
-                         */
-                        if (!is_shippable(oe->opno, OperatorRelationId, fpinfo))
-                        {
-                                return false;
-                        }
-
-                        /*
-                         * Recurse to input subexpressions.
-                         */
-                        if (!foreign_expr_walker((Node *) oe->args,
-                                                 glob_cxt, &inner_cxt))
-                        {
-                                return false;
-                        }
-
-                        /*
-                         * If operator's input collation is not derived from a foreign
-                         * Var, it can't be sent to remote.
-                         */
-                        if (oe->inputcollid == InvalidOid)
-                                /* OK, inputs are all noncollatable */ ;
-                        else if (inner_cxt.state != FDW_COLLATE_SAFE ||
-                                        oe->inputcollid != inner_cxt.collation)
-                        {
-                                return false;
-                        }
-
-                        /* Output is always boolean and so noncollatable. */
-                        collation = InvalidOid;
-                        state = FDW_COLLATE_NONE;
+                    /* Don't push-down the scalar expression because clickhouse does not support that. */
+                    return false;
                 }
                 break;
                 case T_RelabelType:
