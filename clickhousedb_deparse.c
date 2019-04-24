@@ -2589,12 +2589,30 @@ deparseOperatorName(StringInfo buf, Form_pg_operator opform)
                 appendStringInfo(buf, "OPERATOR(%s.%s)",
                                  quote_identifier(opnspname), opname);
         }
-        else
-        {
-                /* Just print operator name. */
-                appendStringInfoString(buf, opname);
-        }
-}
+	    else
+	    {
+		    if (strcmp(opname, "~~") == 0)
+		    {
+			    appendStringInfoString(buf, "LIKE");
+		    }
+		    else if (strcmp(opname, "~~*") == 0)
+		    {
+                appendStringInfoString(buf, "LIKE");
+            }
+		    else if (strcmp(opname, "!~~") == 0)
+		    {
+			    appendStringInfoString(buf, "NOT LIKE");
+		    }
+		    else if (strcmp(opname, "!~~*") == 0)
+		    {
+                appendStringInfoString(buf, "NOT LIKE")
+            }
+		    else
+		    {
+			    appendStringInfoString(buf, opname);
+		    }
+    }
+ }
 
 /*
  * Deparse IS DISTINCT FROM.
