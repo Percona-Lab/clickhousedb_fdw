@@ -2573,7 +2573,7 @@ deparseOperatorName(StringInfo buf, Form_pg_operator opform)
 		    }
 		    else if (strcmp(opname, "!~~*") == 0)
 		    {
-                appendStringInfoString(buf, "NOT LIKE")
+                appendStringInfoString(buf, "NOT LIKE");
             }
 		    else
 		    {
