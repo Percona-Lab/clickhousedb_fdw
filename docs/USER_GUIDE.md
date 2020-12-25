@@ -1,6 +1,4 @@
 # User Guide
-# User Guide
-
 For how to install and set up ``pg_clickhousedb``, see [README](https://github.com/Percona-Lab/clickhousedb_fdw/blob/master/README.md).
 
 After you've installed and enabled ``clickhousedb_fdw``, create the ``clickhousedb_fdw`` extension using the ``CREATE EXTENSION`` command.
@@ -40,12 +38,15 @@ CREATE TABLE tax_bills_nyc
         insertion_date DateTime MATERIALIZED now() 
     )
 ENGINE = MergeTree PARTITION BY tax_class ORDER BY (owner_name)
-
+```
 
 Download the sample data from the taxbills.nyc website and put the data in the table:
 
+```bash
     curl -X GET 'http://taxbills.nyc/tax_bills_june15_bbls.csv' | clickhouse-client --input_format_allow_errors_num=10 --query="INSERT INTO test_database.tax_bills_nyc FORMAT CSV"
-    
+```
+
+```sql
     CREATE TABLE tax_bills
     (
         bbl bigint, 
@@ -54,11 +55,12 @@ Download the sample data from the taxbills.nyc website and put the data in the t
     ENGINE = MergeTree
     PARTITION BY bbl
     ORDER BY bbl;
+```
 
 ##### PostgreSQL
 Now the data is ready in the ClickHouse, the next step is to set up the PostgreSQL side. We need to create a ClickHouse foreign server, user mapping, and foreign tables.
 
-```
+```sql
 CREATE SERVER clickhouse_svr 
 FOREIGN DATA WRAPPER clickhousedb_fdw 
 OPTIONS(dbname 'test_database', driver '/home/vagrant/percona/clickhousedb_fdw/lib/clickhouse-odbc/driver/libclickhouseodbc.so', host '127.0.0.1');
