@@ -1,13 +1,22 @@
 /*-------------------------------------------------------------------------
  *
  * clickhouse_fdw.h
- *		  Foreign-data wrapper for remote Clickhouse servers
+ *		Foreign-data wrapper for remote Clickhouse servers
+ *
+ * Portions Copyright © 2018-2020, Percona LLC and/or its affiliates
+ *
+ * Portions Copyright © 2019-2020, Adjust GmbH
+ *
+ * Portions Copyright © 1996-2020, PostgreSQL Global Development Group
+ *
+ * Portions Copyright © 1994, The Regents of the University of California
  *
  * IDENTIFICATION
- *		  contrib/clickhouedb_fdw/clickhouse_fdw.h
+ *		contrib/clickhouedb_fdw/clickhouse_fdw.h
  *
  *-------------------------------------------------------------------------
  */
+
 #ifndef CLICKHOUSE_FDW_H
 #define CLICKHOUSE_FDW_H
 

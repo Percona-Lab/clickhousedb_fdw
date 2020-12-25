@@ -12,7 +12,7 @@
  * Portions Copyright © 1994, The Regents of the University of California
  *
  * IDENTIFICATION
- *		  contrib/clickhousedb_fdw/clickhousedb_connection.c
+ *		  contrib/clickhousedb_fdw/src/clickhousedb_connection.c
  *
  *-------------------------------------------------------------------------
  */

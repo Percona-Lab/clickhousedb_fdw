@@ -1,3 +1,22 @@
+/*-------------------------------------------------------------------------
+ *
+ * clickhousedb_optipon.c
+ * 		FDW option handling for clickhousedb_fdw
+ *
+ * Portions Copyright © 2018-2020, Percona LLC and/or its affiliates
+ *
+ * Portions Copyright © 2019-2020, Adjust GmbH
+ *
+ * Portions Copyright © 1996-2020, PostgreSQL Global Development Group
+ *
+ * Portions Copyright © 1994, The Regents of the University of California
+ *
+ * IDENTIFICATION
+ *		  contrib/clickhousedb_fdw/src/clickhousedb_option.c
+ *
+ *-------------------------------------------------------------------------
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
