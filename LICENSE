@@ -1,13 +1,13 @@
 
-clickhousedb_fdw - ClickHouse Foreign Data Wrapper for PostgreSQL
+clickhousedb_fdw - ClickHouse Foreign Data Wrapper for PostgreSQL.
 
-Portions Copyright © 2018-2020, Percona LLC and/or its affiliates
+Portions Copyright © 2018-2020, Percona LLC and/or its affiliates.
 
-Portions Copyright © 2019-2020, Adjust GmbH
+Portions Copyright © 2019-2020, Adjust GmbH.
 
-Portions Copyright © 1996-2020, PostgreSQL Global Development Group
+Portions Copyright © 1996-2020, PostgreSQL Global Development Group.
 
-Portions Copyright © 1994, The Regents of the University of California
+Portions Copyright © 1994, The Regents of the University of California.
 
 Permission to use, copy, modify, and distribute this software and its
 documentation for any purpose, without fee, and without a written agreement is
