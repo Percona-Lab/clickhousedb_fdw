@@ -5,7 +5,7 @@ OBJS = clickhousedb_fdw.o clickhousedb_option.o clickhousedb_deparse.o clickhous
 PGFILEDESC = "clickhousedb_fdw - foreign data wrapper for ClickHouse"
 
 PG_CPPFLAGS = -g3 -O0 -Wno-unused-function -Ilib 
-SHLIB_LINK_INTERNAL = -L. -lclickhouse-1.0 -lodbc -lodbcinst
+SHLIB_LINK_INTERNAL = -L. -lclickhouse-1.0 
 
 EXTENSION = clickhousedb_fdw
 DATA = clickhousedb_fdw--1.0.sql
