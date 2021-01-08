@@ -122,15 +122,21 @@ As a general rule of thumb, try to create bug reports that are:
 
 - Reproducible: describe the steps to reproduce the problem.
 
-- Specific: include the version of Percona Backup for MongoDB, your environment, and so on.
-
 - Unique: check if there already exists a JIRA ticket to describe the problem.
 
 - Scoped to a Single Bug: only report one bug in one JIRA ticket.
 
 
 ## Copyright Notice
-Copyright (c) 2006 - 2020, Percona LLC.
+
+Portions Copyright © 2018-2020, Percona LLC and/or its affiliates
+
+Portions Copyright © 2019-2020, Adjust GmbH
+
+Portions Copyright © 1996-2020, PostgreSQL Global Development Group
+
+Portions Copyright © 1994, The Regents of the University of California
+
 
 * Master branch is under heavy development phase, you may face some compilation issues. The REL_0_1_ still can be used.
 
